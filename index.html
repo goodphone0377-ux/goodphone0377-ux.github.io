@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทฤษฎีสีแห่งความสมดุล | Cool Tone Color Theory</title>
+    <style>
+        /* --- 1. SETTING & VARIABLES (Cool Tone Theme) --- */
+        :root {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --text-main: #1a2a3a;
+            --primary-cool: #2b6cb0; /* น้ำเงินหลัก */
+            --secondary-cool: #319795; /* เขียวมินต์/เทอร์คอยส์ */
+            --accent-cool: #4c51bf; /* ม่วงคราม */
+            --neutral-dark: #2d3748;
+            --light-gray: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* --- 2. NAVIGATION BAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+        }
+
+        nav .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-cool);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--neutral-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-cool);
+        }
+
+        /* --- 3. SECTION STYLES --- */
+        section {
+            padding: 100px 5% 60px 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-cool);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-cool);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        /* --- Home Section --- */
+        #home {
+            background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+            text-align: center;
+            align-items: center;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            color: var(--neutral-dark);
+            margin-bottom: 1rem;
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            max-width: 60px;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #4a5568;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-cool);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-cool);
+            transform: translateY(-2px);
+        }
+
+        /* --- Color Wheel Section --- */
+        #wheel {
+            background-color: var(--bg-secondary);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-cool);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--neutral-dark);
+        }
+
+        /* --- Psychology Section --- */
+        #psychology {
+            background-color: #f7fafc;
+        }
+
+        .cool-tones-intro {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            margin-bottom: 2rem;
+        }
+
+        /* --- Generator Section (JavaScript Interactive) --- */
+        #generator {
+            background-color: var(--bg-secondary);
+            text-align: center;
+            align-items: center;
+        }
+
+        .palette-container {
+            display: flex;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .color-box {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .color-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- 4. FOOTER --- */
+        footer {
+            background-color: var(--neutral-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; } /* ซ่อนเมนูบนมือถือเพื่อความง่าย */
+            #home h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">🪟 CoolTheory</div>
+        <ul>
+            <li><a href="#home">หน้าแรก</a></li>
+            <li><a href="#wheel">วงล้อสี</a></li>
+            <li><a href="#psychology">จิตวิทยาแห่งสี</a></li>
+            <li><a href="#generator">ทดลองจัดสี</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h1>ศาสตร์แห่งความสงบด้วย "ทฤษฎีสี"</h1>
+        <p>ค้นพบอิทธิพลของสีโทนเย็น ที่ส่งผลต่อความรู้สึก สมาธิ และการออกแบบเว็บไซต์สมัยใหม่ที่สบายตาที่สุด</p>
+        <a href="#wheel" class="btn">เริ่มต้นเรียนรู้</a>
+    </section>
+
+    <section id="wheel">
+        <h2 class="section-title">โครงสร้างของสีโทนเย็น</h2>
+        <p>ในวงล้อสี (Color Wheel) สีโทนเย็นคือสีที่ให้ความรู้สึกสงบ ปลอดโปร่ง และผ่อนคลาย โดยแบ่งออกเป็น 3 ขั้นหลัก:</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>1. สีขั้นต้น (Primary)</h3>
+                <p><strong>สีน้ำเงิน (Blue):</strong> เป็นรากฐานของสีโทนเย็นทั้งหมด สื่อถึงความมั่นคง ความน่าเชื่อถือ และความลึกซึ้ง</p>
+            </div>
+            <div class="card" style="border-left-color: var(--secondary-cool);">
+                <h3>2. สีขั้นที่สอง (Secondary)</h3>
+                <p><strong>สีเขียว (Green) และ สีม่วง (Purple):</strong> เกิดจากการผสมของสีน้ำเงินกับสีโทนอื่น ให้ความรู้สึกของธรรมชาติและการค้นพบ</p>
+            </div>
+            <div class="card" style="border-left-color: var(--accent-cool);">
+                <h3>3. สีขั้นที่สาม (Tertiary)</h3>
+                <p><strong>สีเขียวตองอ่อน, สีน้ำเงินอมเขียว (เทอร์คอยส์):</strong> เพิ่มมิติความสดใสและความทันสมัยให้กับงานออกแบบ</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="psychology">
+        <h2 class="section-title">จิตวิทยาของสีโทนเย็น</h2>
+        <div class="cool-tones-intro">
+            <p>นักจิตวิทยาค้นพบว่าสีโทนเย็นสามารถลดอัตราการเต้นของหัวใจและช่วยให้จิตใจเข้าสู่สภาวะผ่อนคลายได้ เหมาะอย่างยิ่งสำหรับเว็บไซต์ที่ต้องการความน่าเชื่อถือ หรือแอปพลิเคชันที่ต้องใช้สายตาเป็นเวลานาน</p>
+        </div>
+        <div class="grid-container">
+            <div class="card" style="background: #e6fffa;">
+                <h3 style="color: #234e52;">🟢 สีเขียว</h3>
+                <p>สื่อถึงธรรมชาติ การเติบโต ความอุดมสมบูรณ์ และความปลอดภัย ช่วยพักสายตาได้ดีที่สุด</p>
+            </div>
+            <div class="card" style="background: #ebf8ff;">
+                <h3 style="color: #2b6cb0;">🔵 สีน้ำเงิน</h3>
+                <p>สื่อถึงความมืออาชีพ ความสงบ ความจริงใจ และความปลอดภัย (เป็นสีที่ฮิตที่สุดในเว็บไอทีและธนาคาร)</p>
+            </div>
+            <div class="card" style="background: #faf5ff;">
+                <h3 style="color: #553c9a;">🟣 สีม่วง</h3>
+                <p>สื่อถึงความหรูหรา เวทมนตร์ ค่านิยม ความคิดสร้างสรรค์ และความลึกลับที่น่าค้นหา</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="generator">
+        <h2 class="section-title">เครื่องมือสุ่มพาเลตสีโทนเย็น</h2>
+        <p>คลิกปุ่มด้านล่างเพื่อสุ่มชุดสี (Cool Tones Palette) นำไปใช้ในงานออกแบบของคุณได้ทันที!</p>
+        
+        <div class="palette-container" id="palette">
+            </div>
+
+        <button class="btn" onclick="generateCoolPalette()">สุ่มชุดสีใหม่</button>
+    </section>
+
+    <footer>
+        <p>© 2026 เว็บไซต์เรียนรู้ทฤษฎีสีหน้าเดียว | พัฒนาโดยผู้เชี่ยวชาญเพื่อการศึกษา</p>
+    </footer>
+
+    <script>
+        // ฟังก์ชันสุ่มตัวเลขตามช่วงที่กำหนด
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // ฟังก์ชันสุ่มสีเฉพาะ "โทนเย็น" (จำกัดช่วง Hue ให้เจาะจงสีเขียว น้ำเงิน ม่วง)
+        function generateCoolColor() {
+            // โทนเย็นส่วนใหญ่จะอยู่ในช่วงองศาที่ 160 ถึง 300 บนวงล้อสี HSL
+            const hue = getRandomInt(160, 280); 
+            const saturation = getRandomInt(50, 80); // ความสดของสี %
+            const lightness = getRandomInt(40, 60);   // ความสว่าง %
+            
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        }
+
+        // ฟังก์ชันสร้างพาเลตสีแสดงบนหน้าเว็บ
+        function generateCoolPalette() {
+            const paletteContainer = document.getElementById('palette');
+            paletteContainer.innerHTML = ''; // ล้างค่าเก่าก่อน
+
+            // สร้างกล่องสี 4 กล่อง
+            for (let i = 0; i < 4; i++) {
+                const color = generateCoolColor();
+                
+                const colorBox = document.createElement('div');
+                colorBox.className = 'color-box';
+                colorBox.style.backgroundColor = color;
+                colorBox.innerHTML = `<span>${color}</span>`;
+                
+                paletteContainer.appendChild(colorBox);
+            }
+        }
+
+        // เรียกใช้งานครั้งแรกเมื่อโหลดหน้าเว็บเสร็จ
+        window.onload = function() {
+            generateCoolPalette();
+        };
+    </script>
+</body>
+</html>
